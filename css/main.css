@@ -125,12 +125,6 @@ figcaption {
     font-size: 9pt;
 }
 
-.link {
-    fill: none;
-    stroke: silver;
-    stroke-width: 1px;
-}
-
 /* Footer */
 
 .hero.is-dark a:not(.button):not(.dropdown-item):not(.tag):hover {
@@ -184,12 +178,16 @@ svg text.bold {
     stroke-width: 1.5px !important;
 }
 
-pre {
-    background-color: #999999;
-    color: #30592b;
+.link {
+    fill: none;
+    stroke: #999999;
+    stroke-width: 1px;
 }
 
 svg text#tooltip {
-    stroke: #ffffff;
+    fill: #ffffff;
     font-size: 12px;
+    font-weight: 900;
+    text-shadow: 1px 1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000,
+        -1px -1px 0 #000000;
 }

@@ -4,8 +4,8 @@ const attr = {
         width: 960,
         height: 500
     },
-    pad: 10,
-    r: 4
+    pad: 14,
+    r: 5
 };
 
 const translate = function(a, b) {
@@ -159,10 +159,7 @@ const nodelink = function(data, color) {
 
 d3.json(attr.file).then(function(d) {
     let processed = processData(d);
-    let color = d3.scaleSequential(
-        [processed.height, 0],
-        d3.interpolateViridis
-    );
+    let color = d3.scaleSequential([processed.height, 0], d3.interpolateWarm);
 
     nodelink(processed, color);
 });

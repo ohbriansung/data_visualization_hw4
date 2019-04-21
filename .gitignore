@@ -8,3 +8,4 @@ Gemfile.lock
 # OS Temporary Files
 .DS_Store
 Thumbs.db
+fire_department_calls_for_service.csv

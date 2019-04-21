@@ -1,0 +1,257 @@
+/*
+THEME
+red:  #ff5b5b
+blue: #44bdbd
+gray: #353535
+font: https://fonts.googleapis.com/css?family=Germania+One|Source+Code+Pro
+*/
+
+/* Header */
+
+h1, h2, h3, .navbar {
+  font-family: 'Germania One', cursive;
+  color: #44bdbd;
+}
+
+.navbar {
+  font-size: 18px;
+}
+
+.hero.is-dark .title {
+  font-size: 42px;
+  color: #44bdbd;
+}
+
+.hero.is-dark .subtitle {
+  font-size: 30px;
+  color: #44bdbd;
+}
+
+.hero.is-dark a.navbar-item.is-active span {
+  color: #ff5b5b;
+}
+
+/* Body */
+
+body {
+  font-family: 'Source Code Pro', monospace;
+  background-color: #353535;
+  color: #ffffff;
+}
+
+hr {
+  background-color: #ff5b5b;
+}
+
+.content h2, .content h3 {
+  color: #44bdbd;
+}
+
+.table,
+.content table thead td,
+.content table thead th,
+.content table tfoot td,
+.content table tfoot th {
+  background-color: #353535;
+  color: #ffffff;
+}
+
+.table.is-bordered td, .table.is-bordered th {
+  border-width: 2px;
+}
+
+.table.is-bordered tr:last-child td,
+.table.is-bordered tr:last-child th {
+  border-bottom-width: 2px;
+}
+
+th,
+.content table th {
+  font-weight: bolder;
+  color: #ffffff;
+}
+
+a {
+  color: #ff5b5b;
+}
+
+a:hover,
+a.navigation:hover {
+  color: #ffffff;
+  transition: 0.3s;
+}
+
+a.navigation {
+  color: #44bdbd;
+}
+
+strong {
+  font-family: 'Germania One', cursive;
+  color: #ffffff;
+  font-size: 30px;
+}
+
+a.interest {
+  cursor: default;
+}
+
+a.theme-yellow {
+  color: #f4dd61;
+}
+
+a.theme-green {
+  color: #06d6a0;
+}
+
+a.theme-purple {
+  color: #d796d7;
+}
+
+a.theme-orange {
+  color: #f77f00;
+}
+
+a.theme-blue {
+  color: #75a3bc;
+}
+
+figcaption {
+  text-align: center;
+  font-size: 9pt;
+}
+
+/* Footer */
+
+.hero.is-dark a:not(.button):not(.dropdown-item):not(.tag):hover {
+  color: #ff5b5b;
+}
+
+/* Customized */
+
+.profile-photo {
+  width: 420px;
+  height: 420px;
+}
+
+.profile-links {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+svg, .prototypes {
+  background-color: #2b3638;
+  display: block;
+  margin: auto;
+  width: 960px;
+  height: 500px;
+  border: #ffffff solid 1px;
+}
+
+svg.map {
+  height: 600px;
+}
+
+path.land {
+  fill: #4d6059;
+  stroke: none;
+}
+
+path.neighborhood,
+path.street {
+  fill: none;
+  stroke: #7f8d89;
+  stroke-width: 1px;
+  pointer-events: none;
+}
+
+svg#svg2 g#outline path.neighborhood {
+  stroke: #777777;
+}
+
+path.neighborhood {
+  stroke-width: 2px;
+}
+
+circle.symbol {
+  stroke: #ffffff;
+  stroke-width: 0.7px;
+}
+
+
+.legend text,
+g#piechar text,
+g#dslider text {
+  fill: #ffffff;
+  font-size: 12px;
+}
+
+.legend text,
+g#records circle,
+g#piechar .arc,
+g#dslider text {
+  cursor: pointer;
+}
+
+g text.bold,
+svg text.bold,
+g#dslider text.bold,
+g#tooltip text {
+  font-family: 'Germania One', cursive;
+  fill: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  stroke: #000000;
+  stroke-width: 0.25px;
+  cursor: default;
+}
+
+#foreigndDetail table {
+  width: auto;
+  height: auto;
+  font-size: 12px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#foreigndDetail table th,
+#foreigndDetail table td {
+  border: none;
+  padding: 0;
+}
+
+#foreigndDetail table th {
+  padding-right: 10px;
+}
+
+#foreigndDetail img.detailImage {
+  display: block;
+  margin: auto;
+  width: 160px;
+  height: auto;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.active {
+  stroke: RED !important;
+  stroke-width: 1.5px !important;
+}
+
+pre {
+  background-color: #999999;
+  color: #30592B;
+}
+
+.colorLegend {
+  stroke: #555555;
+}
+
+g#colorAxis path.domain {
+  visibility: hidden;
+}
+
+g#colorAxis g.tick text {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
+}

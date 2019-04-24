@@ -1,11 +1,24 @@
 const attr = {
-    file: "./data/fire_department_calls_for_service_stratified.json",
+    file: "./data/fire_department_calls_for_service_sample_stratified.json",
+    // file: "./data/fire_department_calls_for_service_stratified.json",
     plot: {
         width: 960,
         height: 500
     },
     pad: 14,
-    r: 5
+    r: 4,
+    diameter: 500
+};
+
+const linkTypes = {
+    curvedLine: d3
+        .linkVertical()
+        .x(d => d.x)
+        .y(d => d.y),
+    radialLine: d3
+        .linkRadial()
+        .angle(d => d.theta + Math.PI / 2)
+        .radius(d => d.radial)
 };
 
 const translate = function(a, b) {
@@ -128,17 +141,24 @@ const processData = function(data) {
     return root;
 };
 
-const nodelink = function(data, color) {
+const sorting = function(a, b) {
+    return b.height - a.height || b.value - a.value;
+};
+
+const toCartesian = function(r, theta) {
+    return {
+        x: r * Math.cos(theta),
+        y: r * Math.sin(theta)
+    };
+};
+
+const drawNodeLink = function(data, color) {
     let layout = d3
         .tree()
         .size([
             attr.plot.width - 2 * attr.pad,
             attr.plot.height - 2 * attr.pad
         ]);
-
-    data.sort(function(a, b) {
-        return b.height - a.height || b.value - a.value;
-    });
 
     layout(data);
 
@@ -148,18 +168,86 @@ const nodelink = function(data, color) {
         .attr("id", "plot1")
         .attr("transform", translate(attr.pad, attr.pad));
 
-    let curvedLine = d3
-        .linkVertical()
-        .x(d => d.x)
-        .y(d => d.y);
+    let raise = true;
 
-    drawLinks(plot.append("g"), data.links(), curvedLine);
-    drawNodes(plot.append("g"), data.descendants(), true, color);
+    drawLinks(plot.append("g"), data.links(), linkTypes.curvedLine);
+    drawNodes(plot.append("g"), data.descendants(), raise, color);
+};
+
+const drawDenTree = function(data, color) {
+    let layout = d3.cluster().size([2 * Math.PI, attr.diameter / 2 - attr.pad]);
+
+    layout(data);
+
+    data.each(function(node) {
+        node.theta = node.x;
+        node.radial = node.y;
+
+        var point = toCartesian(node.radial, node.theta);
+        node.x = point.x;
+        node.y = point.y;
+    });
+
+    let svg = d3.select("#svg2");
+
+    let plot = svg
+        .append("g")
+        .attr("id", "plo2")
+        .attr(
+            "transform",
+            translate(attr.plot.width / 2, attr.plot.height / 2)
+        );
+
+    let raise = true;
+
+    drawLinks(plot.append("g"), data.links(), linkTypes.radialLine);
+    drawNodes(plot.append("g"), data.descendants(), raise, color);
+};
+
+const drawTreeMap = function(data, color) {
+    let layout = d3
+        .treemap()
+        .padding(attr.r)
+        .size([
+            attr.plot.width - 2 * attr.pad,
+            attr.plot.height - 2 * attr.pad
+        ]);
+
+    layout(data);
+
+    let svg = d3.select("#svg3");
+
+    let plot = svg
+        .append("g")
+        .attr("id", "plot3")
+        .attr("transform", translate(attr.pad, attr.pad));
+
+    console.log(data.descendants());
+
+    let rects = plot
+        .selectAll("rect")
+        .data(data.descendants())
+        .enter()
+        .append("rect")
+        .attr("x", d => d.x0)
+        .attr("y", d => d.y0)
+        .attr("width", d => d.x1 - d.x0)
+        .attr("height", d => d.y1 - d.y0)
+        .attr("id", d => d.data.name)
+        .attr("class", "node")
+        .style("fill", d => color(d.depth));
+
+    let raise = false;
+
+    setupEvents(plot, rects, raise);
 };
 
 d3.json(attr.file).then(function(d) {
     let processed = processData(d);
     let color = d3.scaleSequential([processed.height, 0], d3.interpolateWarm);
+    let sorted = processed.sort(sorting);
 
-    nodelink(processed, color);
+    drawNodeLink(sorted, color);
+    drawDenTree(sorted, color);
+    drawTreeMap(sorted, color);
 });

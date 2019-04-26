@@ -401,6 +401,8 @@ const createDropDown = function(modules, data, color) {
                 let name = data.children[i].data.name.substring(
                     data.children[i].data.name.indexOf("->") + 2
                 );
+                name = name.length == 0 ? "Empty" : name;
+
                 if (name === value) {
                     visualize(data.children[i].copy(), color);
                 }

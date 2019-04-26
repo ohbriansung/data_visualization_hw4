@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>SF Fire Department Calls for Service</title>
+  <title>Visualizing Hierarchy</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" integrity="sha256-2pUeJf+y0ltRPSbKOeJh09ipQFYxUdct5nTY6GAXswA=" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -27,7 +27,7 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Visualization - Fire Department Calls for Service
+          Visualizing Hierarchy - Fire Department Calls for Service
         </h1>
         <h2 class="subtitle">
           Chien-Yu Sung
@@ -96,7 +96,7 @@
 
       <p>
         The dataset I used in this project was <b>Fire Department Calls for Service</b> sourced from <a href="https://data.sfgov.org/Public-Safety/Fire-Department-Calls-for-Service/nuek-vuh3" target="_blank">data.sfgov.org <i class="fas fa-external-link-alt"></i></a>.
-        This project focused on visualizing <b>Regions</b> of incidents using hierarchical data visualization techniques in order to get a better understanding regarding the story underneath.
+        This project focused on visualizing <b>Hierarchy of Regions</b> of incidents using hierarchical data visualization techniques in order to get a better understanding regarding the story underneath.
         I used <b>Python3</b> for parsing the original data into json format that can be used by d3.stratify(), and I used <b>D3.js</b> version 5 for implementing the visualization.
         The font styles used in this website are powered by <a href="https://fonts.google.com/" target="_blank">Google Fonts <i class="fas fa-external-link-alt"></i></a>.
         This is an open source project, all the source code can be found <a href="https://github.com/usf-cs360-spring2019/homework4-ohbriansung" target="_blank">here <i class="fas fa-external-link-alt"></i></a>.
@@ -152,6 +152,7 @@
       <p>
         Data Processing:<br/>
         Used python to filter unused columns and process each row to build a hierarchy with children and parents so it can be used by d3.stratify().
+        I tried to make this script reusable and as comprehensive as possible. You can indicate the input file, output filename, columns to use, order of hierarchy, whether to add a root, and lookup option to combine something like San Francisco and SF.
         See source code <a href="https://github.com/ohbriansung/PyD3Stratify" target="_blank">here <i class="fas fa-external-link-alt"></i></a>.
       </p>
 
@@ -191,31 +192,57 @@
     <div class="container content">
       <h2><a href="#vis" class="navigation">#</a> D3 Visualizations</h2>
 
-      <svg id="svg1">
-      </svg>
+      <div class="field">
+        <div class="control">
+          Root: <div id="drop" class="select is-dark"></div>
+        </div>
+      </div>
 
       <br/>
 
-      <svg id="svg2">
-      </svg>
+      <svg id="svg1"></svg>
 
       <br/>
 
-      <svg id="svg3">
-      </svg>
+      <svg id="svg2"></svg>
 
-      <figcaption>
-        <i></i>
-      </figcaption>
+      <br/>
+
+      <svg id="svg3"></svg>
+
+      <br/>
+
+      <svg id="svg4"></svg>
+
+      <h3>Interpretation</h3>
+
+      <p>
+        These are the hierarchy of same dataset with different encoding.
+        The root of Dendrogram is on the top, Treemap is the most outer square, Circular Tree and Sunburst is in the middle. Leaves are the purple ones.
+        The data was encoded with State -> City -> Neighborhood -> Zipcode.
+        The colors are based on the depth of the node, root is 0 and leaf is 3.
+        Tooltip shows the name of the node and how many records are there in all children.
+        Size of the leaves indicate the number of records for each Zipcode in the neighborhood.
+      </p>
 
       <h3>Discussion</h3>
 
       <p>
+        The first thing I learned from this dataset is that there are some situation that one Zipcode might be in several neighborhoods.
+        Moreover, there are some situation that one neighborhood is in different city such as Outer Mission is in both San Francisco and Daly City.
+        This makes the data wrangling very hard because we might put the wrong child under a incorrect parent.
+        However, I used a top down solution to parse and generate the dataset so there will be no such problem.
+        I believe that there was a reconstruction regarding the hierarchy of neighborhood and city during these years.
+        You can see there is a empty city on second level, and some cities on second level became the children of that empty city.
+        Overall, most of the services happened in the city of San Francisco.
       </p>
 
       <h3>Interactivity</h3>
 
       <p>
+        0. Use dropdown feature to zoom into different children and the legend will change as well.<br/>
+        1. Hover over nodes highlights itself and all the ancestor nodes as well as the path to the root.<br/>
+        2. Hover over nodes shows the name of the nodes and how many records are there.
       </p>
 
       <h3>Credits</h3>
@@ -223,6 +250,7 @@
       <p>
         0. <a href="https://observablehq.com/@sjengle/java-11-api-hierarchy-data-wrangling" target="_blank">Java 11 API Hierarchy - Data Wrangling <i class="fas fa-external-link-alt"></i></a> by Sophie Engle<br/>
         1. <a href="https://observablehq.com/@sjengle/java-11-api-hierarchy-visualization" target="_blank">Java 11 API Hierarchy - Visualization <i class="fas fa-external-link-alt"></i></a> by Sophie Engle<br/>
+        2. <a href="https://bl.ocks.org/denjn5/e1cdbbe586ac31747b4a304f8f86efa5" target="_blank">Sunburst Tutorial <i class="fas fa-external-link-alt"></i></a> by David Richards
       </p>
     </div>
   </section>
@@ -257,7 +285,11 @@
             </td>
 
             <td>
-              TBA
+              Completed four types of hierarchy visualizations.
+              Two of them were using polar coordinates.
+              Added highlighting from node to root and <b>zooming</b> interactivity.
+              Included write-ups about interpretation and what I learned.
+              Included the context like titles and legends.
             </td>
           </tr>
         <tbody>

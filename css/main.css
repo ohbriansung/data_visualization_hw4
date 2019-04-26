@@ -125,6 +125,10 @@ figcaption {
     font-size: 9pt;
 }
 
+.select.is-dark select {
+    background-color: #888888;
+}
+
 /* Footer */
 
 .hero.is-dark a:not(.button):not(.dropdown-item):not(.tag):hover {
@@ -190,6 +194,22 @@ svg text#tooltip {
     font-weight: 900;
     text-shadow: 1px 1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000,
         -1px -1px 0 #000000;
+}
+
+svg text.title,
+svg text.subtitle {
+    font-family: "Germania One", cursive;
+    text-anchor: start;
+    fill: #ffffff;
+}
+
+svg text.subtitle {
+    font-size: 18px;
+    stroke: #000000;
+}
+
+.attribute {
+    fill: #ffffff;
 }
 
 .node {
